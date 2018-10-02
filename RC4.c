@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 void inicializacao(unsigned char chave[],unsigned char s[]);
 int tamanho(unsigned char chave[]);
 unsigned char *geracao_de_fluxo(unsigned char chave[],unsigned char s[],unsigned char texto[]);
@@ -22,10 +23,10 @@ int main() {
                 printf("digite o Texto : ");
                 scanf("%[^\n]", texto);
                 getchar();
-                
+
                 printf("digite a Chave : ");
                 scanf("%[^\n]", chave);
-                getchar();
+                getchar();                
                 break;
             case 2:
                 printf("digite o Hexa : ");
@@ -116,6 +117,7 @@ unsigned char * converteHexa(unsigned char texto[])
     unsigned char * txt = (unsigned char *) calloc (tamanho(texto), sizeof (unsigned char));
     for(i = 0,j=0 ; ((texto[i] != '\0') &&  (texto[i+1] != '\0')); i=i+2,j++)
     {
+        temp=0;
         if((texto[i]=='a')||(texto[i]=='A'))
         {
             temp = 10*16;
@@ -151,14 +153,13 @@ unsigned char * converteHexa(unsigned char texto[])
                             }
                             else
                             {
-                                temp=(int)texto[i];
+                                temp=(texto[i]-48)*16;
                             }   
                         }   
                     }   
                 }   
             }
         }
-        printf("%d->",temp);
         if((texto[i+1]=='a')||(texto[i+1]=='A'))
         {
             temp=temp+10;
@@ -194,18 +195,15 @@ unsigned char * converteHexa(unsigned char texto[])
                             }
                             else
                             {
-                                temp=temp+(int)texto[i+1];
+                                temp=temp+texto[i+1]-48;
                             }   
                         }   
                     }   
                 }   
             }
         }
-        printf("%d=",temp);
         txt[j]=temp;
-        printf("%c\n",txt[j] );  
     }
     txt[j]='\0';
-    printf("o texto era :%s\n",txt);
     return txt;
 }
