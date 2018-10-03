@@ -29,12 +29,8 @@ int main() {
 
                 printf("digite a Chave : ");
                 scanf("%[^\n]", chave);
-<<<<<<< HEAD
                 chave[256]='\0';
                 getchar();
-=======
-                getchar();                
->>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
                 break;
             case 2:
                 printf("digite o Hexa : ");
@@ -158,11 +154,7 @@ void converteHexa(unsigned char texto[],unsigned char txt[])
     int temp;
     for(i = 0,j=0 ; ((texto[i] != '\0') &&  (texto[i+1] != '\0')); i=i+2,j++)
     {
-<<<<<<< HEAD
     	temp=0;
-=======
-        temp=0;
->>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
         if((texto[i]=='a')||(texto[i]=='A'))
         {
             temp = 10*16;
@@ -198,11 +190,7 @@ void converteHexa(unsigned char texto[],unsigned char txt[])
                             }
                             else
                             {
-<<<<<<< HEAD
                                 temp=((int)texto[i]-48)*16;
-=======
-                                temp=(texto[i]-48)*16;
->>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
                             }   
                         }   
                     }   
@@ -244,11 +232,7 @@ void converteHexa(unsigned char texto[],unsigned char txt[])
                             }
                             else
                             {
-<<<<<<< HEAD
                                 temp=temp+(int)texto[i+1]-48;
-=======
-                                temp=temp+texto[i+1]-48;
->>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
                             }   
                         }   
                     }   
@@ -258,8 +242,4 @@ void converteHexa(unsigned char texto[],unsigned char txt[])
         txt[j]=temp;
     }
     txt[j]='\0';
-<<<<<<< HEAD
-=======
-    return txt;
->>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
 }
