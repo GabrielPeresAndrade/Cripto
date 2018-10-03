@@ -3,15 +3,18 @@
 #include <string.h>
 void inicializacao(unsigned char chave[],unsigned char s[]);
 int tamanho(unsigned char chave[]);
-unsigned char *geracao_de_fluxo(unsigned char chave[],unsigned char s[],unsigned char texto[]);
-unsigned char * converteHexa(unsigned char texto[]);
+//unsigned char *geracao_de_fluxo(unsigned char chave[],unsigned char s[],unsigned char texto[]);
+
+void converteHexa(unsigned char texto[],unsigned char txt[]);
 
 int main() {
     unsigned char *texto= (unsigned char *) calloc (15000, sizeof (unsigned char));
-    unsigned char chave[256];
+    unsigned char chave[257];
     int opc;
     unsigned char s[15000];
-    unsigned char *cifrado;
+    int i, j, t, k,tam;
+    unsigned char tmp;
+    unsigned char * cifrado = (unsigned char *) calloc (15000, sizeof (unsigned char));
     while(opc!=5)
     {
         printf("\nQual opcao deseja?\n1-Entrar com um Texto e uma Chave\n2-Entrar com um Hexa e uma Chave\n3-Encriptografar\n4-Descriptografar\n5-sair\n");
@@ -26,12 +29,17 @@ int main() {
 
                 printf("digite a Chave : ");
                 scanf("%[^\n]", chave);
+<<<<<<< HEAD
+                chave[256]='\0';
+                getchar();
+=======
                 getchar();                
+>>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
                 break;
             case 2:
                 printf("digite o Hexa : ");
-                scanf("%[^\n]", texto);
-                texto = converteHexa(texto);
+                scanf("%[^\n]", cifrado);
+                converteHexa(cifrado,texto);
                 getchar();
                 
                 printf("digite a Chave : ");
@@ -41,12 +49,44 @@ int main() {
             case 3:
                 printf("\n\nCifrado: ");
                 inicializacao(chave, s);
-                cifrado = geracao_de_fluxo(chave, s, texto);
+                //cifrado = geracao_de_fluxo(chave, s, texto);
+                
+                tam = tamanho(texto);
+			    for (i = 0, k = 0, j = 0; k < tam; k++) 
+			    { 
+			        i = (i + 1) % 256;
+			        j = (j + s[i]) % 256;
+			        tmp = s[i];
+			        s[i] = s[j];
+			        s[j] = tmp;
+			        t = (s[i] + s[j]) % 256;
+			        cifrado[k] = texto[k] ^ s[t]; 
+			    }
+			    cifrado[k] = '\0';
+			    printf(" %s\n", cifrado);
+
                 break;
             case 4:
                 printf("\n\nDescifrado: ");
                 inicializacao(chave, s);
-                texto = geracao_de_fluxo(chave, s, cifrado);
+                //texto = geracao_de_fluxo(chave, s, cifrado);
+
+                tam = tamanho(cifrado);
+    
+			    for (i = 0, k = 0, j = 0; k < tam; k++) 
+			    { 
+			        i = (i + 1) % 256;
+			        j = (j + s[i]) % 256;
+			        tmp = s[i];
+			        s[i] = s[j];
+			        s[j] = tmp;
+			        t = (s[i] + s[j]) % 256;
+			        texto[k] = cifrado[k] ^ s[t]; 
+			    }
+			    
+			    texto[k] = '\0';
+			    printf(" %s\n", texto);
+
                 break;
             case 5:
 
@@ -67,8 +107,10 @@ int main() {
 void inicializacao(unsigned char chave[],unsigned char s[]) {
     int i, j;
     unsigned char tmp;
-    unsigned char t[256];
+    unsigned char t[257];
     int tam = tamanho(chave);
+    if (tam>256)
+    	tam=256;
     for (i = 0; i < 256; i++) {
         s[i] = i;
         t[i] = chave[i % tam ];
@@ -87,7 +129,7 @@ int tamanho(unsigned char chave[]) {
     for (i = 0; chave[i] != '\0'; i++);
     return i;
 }
-
+/*
 unsigned char *geracao_de_fluxo(unsigned char chave[],unsigned char s[],unsigned char texto[]) {
     int i, j, t, k;
     unsigned char tmp;
@@ -109,15 +151,18 @@ unsigned char *geracao_de_fluxo(unsigned char chave[],unsigned char s[],unsigned
     
     return(cifrado);
 }
-
-unsigned char * converteHexa(unsigned char texto[])
+*/
+void converteHexa(unsigned char texto[],unsigned char txt[])
 {
     int i,j;
     int temp;
-    unsigned char * txt = (unsigned char *) calloc (tamanho(texto), sizeof (unsigned char));
     for(i = 0,j=0 ; ((texto[i] != '\0') &&  (texto[i+1] != '\0')); i=i+2,j++)
     {
+<<<<<<< HEAD
+    	temp=0;
+=======
         temp=0;
+>>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
         if((texto[i]=='a')||(texto[i]=='A'))
         {
             temp = 10*16;
@@ -137,7 +182,7 @@ unsigned char * converteHexa(unsigned char texto[])
                 {
                      if((texto[i]=='d')||(texto[i]=='D'))
                     {
-                        temp = 13*16;
+                        temp =13*16;
                     }
                     else
                     {
@@ -153,7 +198,11 @@ unsigned char * converteHexa(unsigned char texto[])
                             }
                             else
                             {
+<<<<<<< HEAD
+                                temp=((int)texto[i]-48)*16;
+=======
                                 temp=(texto[i]-48)*16;
+>>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
                             }   
                         }   
                     }   
@@ -195,7 +244,11 @@ unsigned char * converteHexa(unsigned char texto[])
                             }
                             else
                             {
+<<<<<<< HEAD
+                                temp=temp+(int)texto[i+1]-48;
+=======
                                 temp=temp+texto[i+1]-48;
+>>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
                             }   
                         }   
                     }   
@@ -205,5 +258,8 @@ unsigned char * converteHexa(unsigned char texto[])
         txt[j]=temp;
     }
     txt[j]='\0';
+<<<<<<< HEAD
+=======
     return txt;
+>>>>>>> 3854b0d7eed19e353a0e73b98cff444d2923dcfc
 }
